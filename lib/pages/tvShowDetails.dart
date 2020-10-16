@@ -1,3 +1,4 @@
+import 'package:MagicSystem/models/actorModel.dart';
 import 'package:MagicSystem/models/movieModel.dart';
 import 'package:MagicSystem/models/tvShowModel.dart';
 import 'package:MagicSystem/repository/testRepo.dart';
@@ -32,6 +33,7 @@ class _DetailsTvShowPageState extends State<DetailsTvShowPage> {
 
 class FutureDetailsMovie extends StatelessWidget {
   TvShow selectedTvShow;
+  List<Actor> castList;
   int movieId;
 
   FutureDetailsMovie(int selectedMovieId) {
@@ -160,15 +162,44 @@ class FutureDetailsMovie extends StatelessWidget {
                               .toList()
                               .cast<Widget>(),
                         ),
-                        Row(children: <Widget>[
+                        Wrap(children: <Widget>[
                           Text(
                             'Cast: ',
                             style: Theme.of(context).textTheme.subtitle2,
                           ),
-                          Text(
-                            "itemCast",
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
+                          FutureBuilder(
+                              future:
+                                  Testrepo.castingList(selectedTvShow.id, "tv"),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState !=
+                                    ConnectionState.done) {
+                                  return Center(
+                                    child: Text("Chargement des films"),
+                                  );
+                                  // On peux vérifier qu'une erreur n'est pas survenue
+                                } else if (snapshot.hasError) {
+                                  print(snapshot);
+                                  return Center(
+                                    child: Text("Une erreur est survenue"),
+                                  );
+                                }
+                                if (snapshot.hasData) {
+                                  castList = snapshot.data;
+                                  return Wrap(
+                                    children: castList
+                                        .map(
+                                          (item) => Text(
+                                            item.name + "  ",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                        )
+                                        .toList()
+                                        .cast<Widget>(),
+                                  );
+                                }
+                              }),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 32.0),
                           )

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:MagicSystem/models/genreModel.dart';
+import 'package:MagicSystem/models/actorModel.dart';
 import 'package:MagicSystem/models/movieModel.dart';
 import 'package:MagicSystem/models/tvShowModel.dart';
 import 'package:http/http.dart' as http;
@@ -12,12 +12,12 @@ class Testrepo {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResults = jsonDecode(response.body)["results"];
-      List<Movie> jsonMovieList = [];
+      List<Movie> movieList = [];
 
       for (int i = 0; i < jsonResults.length; i++) {
-        jsonMovieList.add(Movie.fromJson(jsonResults[i]));
+        movieList.add(Movie.fromJson(jsonResults[i]));
       }
-      return jsonMovieList;
+      return movieList;
     } else {
       return null;
     }
@@ -29,12 +29,12 @@ class Testrepo {
     final response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResults = jsonDecode(response.body)["results"];
-      List<TvShow> jsonTvShowList = [];
+      List<TvShow> tvShowList = [];
 
       for (int i = 0; i < jsonResults.length; i++) {
-        jsonTvShowList.add(TvShow.fromJson(jsonResults[i]));
+        tvShowList.add(TvShow.fromJson(jsonResults[i]));
       }
-      return jsonTvShowList;
+      return tvShowList;
     } else {
       return null;
     }
@@ -61,6 +61,34 @@ class Testrepo {
     final response = await http.get(detailsUrl);
     if (response.statusCode == 200) {
       return TvShow.fromJson(jsonDecode(response.body));
+    } else {
+      return null;
+    }
+  }
+
+  static Future<List<Actor>> castingList(int selectedId, String type) async {
+    String detailsUrl = "https://api.themoviedb.org/3/" +
+        type +
+        "/" +
+        selectedId.toString() +
+        "/credits?api_key=62feaff3d2cf094a340f530fbf25bde9";
+
+    final response = await http.get(detailsUrl);
+    if (response.statusCode == 200) {
+      var jsonResults = jsonDecode(response.body)["cast"];
+      List<Actor> actorList = [];
+
+      int iteration = jsonResults.length;
+      if (iteration > 5) {
+        iteration = 5;
+      }
+
+      for (int i = 0; i < iteration; i++) {
+        print("jsonDecode(response.body) ende");
+        print(jsonResults[i]);
+        actorList.add(Actor.fromJson(jsonResults[i]));
+      }
+      return actorList;
     } else {
       return null;
     }

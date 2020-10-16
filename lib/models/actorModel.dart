@@ -17,14 +17,20 @@ class Actor {
       this.order});
 
   factory Actor.fromJson(Map<String, dynamic> parsedJson) {
+    String imageUrl;
+
+    if (parsedJson['profile_path'] != null) {
+      imageUrl = "https://image.tmdb.org/t/p/w500" + parsedJson['profile_path'];
+    } else {
+      imageUrl = "";
+    }
     return Actor(
         character: parsedJson['character'],
         creditId: parsedJson['credit_id'],
         id: parsedJson['id'],
         name: parsedJson['name'],
         gender: parsedJson['gender'],
-        profilePath:
-            "https://image.tmdb.org/t/p/w500" + parsedJson['profile_path'],
+        profilePath: imageUrl,
         order: parsedJson['order']);
   }
 }
