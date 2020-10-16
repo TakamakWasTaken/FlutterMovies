@@ -1,41 +1,34 @@
 import 'package:MagicSystem/models/movieModel.dart';
+import 'package:MagicSystem/models/tvShowModel.dart';
 import 'package:MagicSystem/repository/testRepo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-class DetailsMoviePage extends StatefulWidget {
-  DetailsMoviePage({Key key, this.selectedMovieId}) : super(key: key);
+class DetailsTvShowPage extends StatefulWidget {
+  DetailsTvShowPage({Key key, this.selectedTvShowId}) : super(key: key);
 
-  final int selectedMovieId;
+  final int selectedTvShowId;
 
   @override
-  _DetailsMoviePageState createState() => _DetailsMoviePageState();
+  _DetailsTvShowPageState createState() => _DetailsTvShowPageState();
 }
 
-class _DetailsMoviePageState extends State<DetailsMoviePage> {
-  var itemAgeLimit = "12+";
-  var itemTitle = "Gravity";
-  var itemReleaseDate = "2020";
-  var itemRating = 73;
-  var itemSummary =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-  var itemCast = "A dude";
-  var itemGenre = "Space opéra";
+class _DetailsTvShowPageState extends State<DetailsTvShowPage> {
   @override
   Widget build(BuildContext context) {
-    int selectedMovieId = widget.selectedMovieId;
+    int selectedTvShowId = widget.selectedTvShowId;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      body: FutureDetailsMovie(selectedMovieId),
+      body: FutureDetailsMovie(selectedTvShowId),
     );
   }
 }
 
 class FutureDetailsMovie extends StatelessWidget {
-  Movie selectedMovie;
+  TvShow selectedTvShow;
   int movieId;
 
   FutureDetailsMovie(int selectedMovieId) {
@@ -48,7 +41,7 @@ class FutureDetailsMovie extends StatelessWidget {
         // Le premier paramètre est la future contenant
         // la valeur que l'on souhaite récuperer.
         //future: Future.delayed(Duration(seconds: 3)),
-        future: Testrepo.movieDetails(movieId),
+        future: Testrepo.tvShowDetails(movieId),
 
         // La fonction de build permet d'afficher un widget en fonction
         // du résultat contenun dans snapshot
@@ -66,11 +59,11 @@ class FutureDetailsMovie extends StatelessWidget {
             );
           }
           if (snapshot.hasData) {
-            selectedMovie = snapshot.data;
+            selectedTvShow = snapshot.data;
             return Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(selectedMovie.imageUrl),
+                  image: NetworkImage(selectedTvShow.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -92,7 +85,7 @@ class FutureDetailsMovie extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          selectedMovie.title,
+                          selectedTvShow.title,
                           style: Theme.of(context).textTheme.subtitle1,
                         ),
                         Row(
@@ -116,7 +109,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                             .bodyText2,
                                       ),
                                       Text(
-                                        selectedMovie.releaseDate,
+                                        selectedTvShow.releaseDate,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
@@ -135,7 +128,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                           semanticLabel: 'thumb up',
                                         ),
                                         Text(
-                                          selectedMovie.voteCount.toString(),
+                                          selectedTvShow.voteCount.toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
@@ -176,7 +169,7 @@ class FutureDetailsMovie extends StatelessWidget {
                           style: Theme.of(context).textTheme.subtitle2,
                         ),
                         Text(
-                          selectedMovie.overview,
+                          selectedTvShow.overview,
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],

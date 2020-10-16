@@ -1,18 +1,15 @@
 import 'dart:convert';
 
 import 'package:MagicSystem/models/movieModel.dart';
+import 'package:MagicSystem/models/tvShowModel.dart';
 import 'package:http/http.dart' as http;
 
 class Testrepo {
-  static Future<List<Movie>> fetchData() async {
-    //String url ="https://api.themoviedb.org/3/movie/76341?api_key=62feaff3d2cf094a340f530fbf25bde9";
-
-    String movieTrendUrl =
+  static Future<List<Movie>> weeklyPopularMovies() async {
+    String url =
         "https://api.themoviedb.org/3/trending/movie/week?api_key=62feaff3d2cf094a340f530fbf25bde9";
-    final response = await http.get(movieTrendUrl);
+    final response = await http.get(url);
     if (response.statusCode == 200) {
-      print(response.body);
-      print(response.statusCode);
       var jsonResults = jsonDecode(response.body)["results"];
       List<Movie> jsonMovieList = [];
 
@@ -20,6 +17,49 @@ class Testrepo {
         jsonMovieList.add(Movie.fromJson(jsonResults[i]));
       }
       return jsonMovieList;
+    } else {
+      return null;
+    }
+  }
+
+  static Future<List<TvShow>> weeklyPopularTvShows() async {
+    String url =
+        "https://api.themoviedb.org/3/trending/tv/week?api_key=62feaff3d2cf094a340f530fbf25bde9";
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResults = jsonDecode(response.body)["results"];
+      List<TvShow> jsonTvShowList = [];
+
+      for (int i = 0; i < jsonResults.length; i++) {
+        jsonTvShowList.add(TvShow.fromJson(jsonResults[i]));
+      }
+      return jsonTvShowList;
+    } else {
+      return null;
+    }
+  }
+
+  static Future<Movie> movieDetails(int selectedId) async {
+    String detailsUrl = "https://api.themoviedb.org/3/movie/" +
+        selectedId.toString() +
+        "?api_key=62feaff3d2cf094a340f530fbf25bde9";
+
+    final detailsResponse = await http.get(detailsUrl);
+    if (detailsResponse.statusCode == 200) {
+      return Movie.fromJson(jsonDecode(detailsResponse.body));
+    } else {
+      return null;
+    }
+  }
+
+  static Future<TvShow> tvShowDetails(int selectedId) async {
+    String detailsUrl = "https://api.themoviedb.org/3/tv/" +
+        selectedId.toString() +
+        "?api_key=62feaff3d2cf094a340f530fbf25bde9";
+
+    final detailsResponse = await http.get(detailsUrl);
+    if (detailsResponse.statusCode == 200) {
+      return TvShow.fromJson(jsonDecode(detailsResponse.body));
     } else {
       return null;
     }

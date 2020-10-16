@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
-        '/details': (BuildContext context) => DetailsPage(),
+        '/details': (BuildContext context) => DetailsMoviePage(),
       },
     );
   }
