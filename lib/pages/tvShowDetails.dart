@@ -20,6 +20,9 @@ class _DetailsTvShowPageState extends State<DetailsTvShowPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
         backgroundColor: Colors.transparent,
       ),
       body: FutureDetailsMovie(selectedTvShowId),
@@ -78,7 +81,7 @@ class FutureDetailsMovie extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.45,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +100,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Text(
-                                        "122",
+                                        "12+",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
@@ -128,7 +131,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                           semanticLabel: 'thumb up',
                                         ),
                                         Text(
-                                          selectedTvShow.voteCount.toString(),
+                                          selectedTvShow.voteAverage.toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2,

@@ -144,6 +144,7 @@ class FuturePopularTvShows extends StatelessWidget {
             );
             // On peux vérifier qu'une erreur n'est pas survenue
           } else if (snapshot.hasError) {
+            print(snapshot);
             return Center(
               child: Text("Une erreur est survenue"),
             );

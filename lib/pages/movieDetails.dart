@@ -13,20 +13,15 @@ class DetailsMoviePage extends StatefulWidget {
 }
 
 class _DetailsMoviePageState extends State<DetailsMoviePage> {
-  var itemAgeLimit = "12+";
-  var itemTitle = "Gravity";
-  var itemReleaseDate = "2020";
-  var itemRating = 73;
-  var itemSummary =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-  var itemCast = "A dude";
-  var itemGenre = "Space opéra";
   @override
   Widget build(BuildContext context) {
     int selectedMovieId = widget.selectedMovieId;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
         backgroundColor: Colors.transparent,
       ),
       body: FutureDetailsMovie(selectedMovieId),
@@ -85,7 +80,7 @@ class FutureDetailsMovie extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.45,
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -104,7 +99,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                         MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Text(
-                                        "122",
+                                        "12+",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText2,
@@ -135,7 +130,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                           semanticLabel: 'thumb up',
                                         ),
                                         Text(
-                                          selectedMovie.voteCount.toString(),
+                                          selectedMovie.voteAverage.toString(),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
@@ -149,15 +144,16 @@ class FutureDetailsMovie extends StatelessWidget {
                                       MediaQuery.of(context).size.width * 0.4)
                             ]),
                         Card(
+                            color: Colors.white,
                             child: Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Text(
-                            "itemGenre",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )),
+                              padding: EdgeInsets.all(16.0),
+                              child: Text(
+                                "itemGenre",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            )),
                         Row(children: <Widget>[
                           Text(
                             'Cast: ',

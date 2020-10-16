@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:MagicSystem/models/genreModel.dart';
 import 'package:MagicSystem/models/movieModel.dart';
 import 'package:MagicSystem/models/tvShowModel.dart';
 import 'package:http/http.dart' as http;
@@ -44,9 +45,9 @@ class Testrepo {
         selectedId.toString() +
         "?api_key=62feaff3d2cf094a340f530fbf25bde9";
 
-    final detailsResponse = await http.get(detailsUrl);
-    if (detailsResponse.statusCode == 200) {
-      return Movie.fromJson(jsonDecode(detailsResponse.body));
+    final response = await http.get(detailsUrl);
+    if (response.statusCode == 200) {
+      return Movie.fromJson(jsonDecode(response.body));
     } else {
       return null;
     }
@@ -57,9 +58,9 @@ class Testrepo {
         selectedId.toString() +
         "?api_key=62feaff3d2cf094a340f530fbf25bde9";
 
-    final detailsResponse = await http.get(detailsUrl);
-    if (detailsResponse.statusCode == 200) {
-      return TvShow.fromJson(jsonDecode(detailsResponse.body));
+    final response = await http.get(detailsUrl);
+    if (response.statusCode == 200) {
+      return TvShow.fromJson(jsonDecode(response.body));
     } else {
       return null;
     }
