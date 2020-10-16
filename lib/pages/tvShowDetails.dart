@@ -174,7 +174,7 @@ class FutureDetailsMovie extends StatelessWidget {
                                 if (snapshot.connectionState !=
                                     ConnectionState.done) {
                                   return Center(
-                                    child: Text("Chargement des films"),
+                                    child: Text("Chargement des acteurs"),
                                   );
                                   // On peux vérifier qu'une erreur n'est pas survenue
                                 } else if (snapshot.hasError) {
