@@ -15,20 +15,7 @@ class Movie {
       this.voteCount});
 
   factory Movie.fromJson(Map<String, dynamic> parsedJson) {
-    String titleOrName;
-    String releaseDate;
     int voteCount;
-    if (parsedJson['title'] != null) {
-      titleOrName = parsedJson['title'];
-    } else {
-      titleOrName = parsedJson['name'];
-    }
-
-    if (parsedJson['release_date'] != null) {
-      releaseDate = parsedJson['release_date'];
-    } else {
-      releaseDate = parsedJson['first_air_date'];
-    }
 
     if (parsedJson['vote_count'] == null) {
       voteCount = 0;
@@ -37,9 +24,9 @@ class Movie {
     }
 
     return Movie(
-        title: titleOrName,
+        title: parsedJson['title'],
         id: parsedJson['id'],
-        releaseDate: releaseDate,
+        releaseDate: parsedJson['release_date'],
         overview: parsedJson['overview'],
         voteCount: voteCount,
         imageUrl:
