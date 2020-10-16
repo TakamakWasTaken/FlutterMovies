@@ -143,17 +143,22 @@ class FutureDetailsMovie extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.4)
                             ]),
-                        Card(
-                            color: Colors.white,
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Text(
-                                "itemGenre",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )),
+                        Wrap(
+                          children: selectedMovie.genreList
+                              .map((item) => Card(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16.0),
+                                    child: Text(
+                                      item.name,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )))
+                              .toList()
+                              .cast<Widget>(),
+                        ),
                         Row(children: <Widget>[
                           Text(
                             'Cast: ',

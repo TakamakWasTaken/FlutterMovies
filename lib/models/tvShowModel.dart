@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:MagicSystem/models/genreModel.dart';
 
 class TvShow {
