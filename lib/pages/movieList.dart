@@ -35,7 +35,8 @@ class MovieListState extends State<MovieList> {
       ),
       Container(
         height: MediaQuery.of(context).size.height * 0.25,
-        child: FuturePopularMovies().build(context),
+        child:
+            FuturePopularMovies(Testrepo.weeklyPopularMovies()).build(context),
       ),
       Container(
         padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
@@ -57,7 +58,7 @@ class MovieListState extends State<MovieList> {
       ),
       Container(
         height: MediaQuery.of(context).size.height * 0.25,
-        child: FuturePopularTvShows().build(context),
+        child: FuturePopularMovies(Testrepo.bestMovies()).build(context),
       ),
     ])));
   }
@@ -65,6 +66,10 @@ class MovieListState extends State<MovieList> {
 
 class FuturePopularMovies extends StatelessWidget {
   int selectedItemId;
+  Future future;
+  FuturePopularMovies(Future future) {
+    this.future = future;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +77,7 @@ class FuturePopularMovies extends StatelessWidget {
         // Le premier paramètre est la future contenant
         // la valeur que l'on souhaite récuperer.
         //future: Future.delayed(Duration(seconds: 3)),
-        future: Testrepo.weeklyPopularMovies(),
+        future: future,
 
         // La fonction de build permet d'afficher un widget en fonction
         // du résultat contenun dans snapshot
@@ -175,11 +180,6 @@ class FuturePopularTvShows extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   selectedItem = snapshot.data[index];
-
-                                  // To remove the previously selected detail page
-                                  while (Navigator.of(context).canPop()) {
-                                    Navigator.of(context).pop();
-                                  }
 
                                   Navigator.of(context).push(
                                       MaterialPageRoute(builder: (context) {

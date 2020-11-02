@@ -40,6 +40,23 @@ class Testrepo {
     }
   }
 
+  static Future<List<Movie>> bestMovies() async {
+    String url =
+        "https://api.themoviedb.org/3/movie/top_rated?api_key=62feaff3d2cf094a340f530fbf25bde9&language=en-US&page=1";
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      var jsonResults = jsonDecode(response.body)["results"];
+      List<Movie> movieList = [];
+
+      for (int i = 0; i < jsonResults.length; i++) {
+        movieList.add(Movie.fromJson(jsonResults[i]));
+      }
+      return movieList;
+    } else {
+      return null;
+    }
+  }
+
   static Future<Movie> movieDetails(int selectedId) async {
     String detailsUrl = "https://api.themoviedb.org/3/movie/" +
         selectedId.toString() +

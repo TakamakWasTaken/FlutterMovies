@@ -22,10 +22,6 @@ class _DetailsMoviePageState extends State<DetailsMoviePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context, false),
-        ),
         iconTheme: IconThemeData(
           color: Colors.white, //change your color here
         ),
