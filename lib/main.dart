@@ -1,3 +1,4 @@
+import 'package:MagicSystem/pages/login.dart';
 import 'package:MagicSystem/pages/movieList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -12,8 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MovieList(title: 'nomdufilm'),
-      title: 'NetFlutter',
+      home: MyCustomForm(),
+      title: 'NetFluxter',
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.brown,
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/details': (BuildContext context) => DetailsMoviePage(),
+        '/list': (BuildContext context) => MovieList(title: 'nomdufilm'),
       },
     );
   }

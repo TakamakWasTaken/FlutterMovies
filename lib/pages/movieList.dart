@@ -20,34 +20,46 @@ class MovieListState extends State<MovieList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Text(''),
+        body: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      SizedBox(
+        height: 20,
+      ),
+      Container(
+        padding: EdgeInsets.fromLTRB(16, 25, 16, 10),
+        child: Text(
+          "Popular Movies",
+          style: Theme.of(context).textTheme.subtitle1,
         ),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-            child: Text(
-              "Popular Movies",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ),
-          Container(
-            height: 200,
-            child: FuturePopularMovies().build(context),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-            child: Text(
-              "Popular TV Shows",
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ),
-          Container(
-            height: 200,
-            child: FuturePopularTvShows().build(context),
-          ),
-        ]));
+      ),
+      Container(
+        height: MediaQuery.of(context).size.height * 0.25,
+        child: FuturePopularMovies().build(context),
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+        child: Text(
+          "Popular TV Shows",
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
+      ),
+      Container(
+        height: MediaQuery.of(context).size.height * 0.25,
+        child: FuturePopularTvShows().build(context),
+      ),
+      Container(
+        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+        child: Text(
+          "Best Movies",
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
+      ),
+      Container(
+        height: MediaQuery.of(context).size.height * 0.25,
+        child: FuturePopularTvShows().build(context),
+      ),
+    ])));
   }
 }
 
@@ -96,11 +108,6 @@ class FuturePopularMovies extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   selectedItemId = snapshot.data[index].id;
-
-                                  // To remove the previously selected detail page
-                                  while (Navigator.of(context).canPop()) {
-                                    Navigator.of(context).pop();
-                                  }
 
                                   Navigator.of(context).push(
                                       MaterialPageRoute(builder: (context) {
